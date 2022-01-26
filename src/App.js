@@ -4,10 +4,14 @@ import Cookies from "universal-cookie";
 import axios from "axios";
 
 import Head from "./components/Head.js";
+import Foot from "./components/Foot.js";
 import "./styles/App.css";
 
 export default function App() {
   const [username, setUsername] = useState("User");
+  const [currentSong, setCurrentSong] = useState(null);
+  const [songState, setSongState] = useState(null);
+  const [listMode, setListMode] = useState("Single");
   const arrow = useRef();
   const loc = useLocation();
 
@@ -78,7 +82,14 @@ export default function App() {
       </tbody>
       <tfoot>
         <tr>
-          <th>Foot</th>
+          <th>
+            <Foot
+              currentSong={currentSong}
+              songState={songState}
+              setListMode={setListMode}
+              listMode={listMode}
+            />
+          </th>
         </tr>
       </tfoot>
     </table>
