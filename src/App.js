@@ -4,6 +4,7 @@ import Cookies from "universal-cookie";
 import axios from "axios";
 
 import Head from "./components/Head.js";
+import Register from "./components/Register.js";
 import Foot from "./components/Foot.js";
 import "./styles/App.css";
 
@@ -46,14 +47,7 @@ export default function App() {
               </tr>
             }
           />
-          <Route
-            path="/register"
-            element={
-              <tr>
-                <td>Register</td>
-              </tr>
-            }
-          />
+          <Route path="/register" element={<Register />} />
           <Route
             path="/login"
             element={
@@ -81,16 +75,12 @@ export default function App() {
         </Routes>
       </tbody>
       <tfoot>
-        <tr>
-          <th>
-            <Foot
-              currentSong={currentSong}
-              songState={songState}
-              setListMode={setListMode}
-              listMode={listMode}
-            />
-          </th>
-        </tr>
+        <Foot
+          currentSong={currentSong}
+          songState={songState}
+          setListMode={setListMode}
+          listMode={listMode}
+        />
       </tfoot>
     </table>
   );
