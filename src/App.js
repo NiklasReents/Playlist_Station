@@ -5,11 +5,14 @@ import axios from "axios";
 
 import Head from "./components/Head.js";
 import Register from "./components/Register.js";
+import Login from "./components/Login.js";
 import Foot from "./components/Foot.js";
 import "./styles/App.css";
 
 export default function App() {
-  const [username, setUsername] = useState("User");
+  const [username, setUsername] = useState(
+    localStorage.getItem("loginData") || "User"
+  );
   const [currentSong, setCurrentSong] = useState(null);
   const [songState, setSongState] = useState(null);
   const [listMode, setListMode] = useState("Single");
@@ -48,14 +51,7 @@ export default function App() {
             }
           />
           <Route path="/register" element={<Register />} />
-          <Route
-            path="/login"
-            element={
-              <tr>
-                <td>Login</td>
-              </tr>
-            }
-          />
+          <Route path="/login" element={<Login setUsername={setUsername} />} />
           <Route
             path="/:tokenPath"
             element={
