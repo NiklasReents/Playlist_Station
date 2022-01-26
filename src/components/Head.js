@@ -1,20 +1,13 @@
 import React, { useState } from "react";
 import { useLocation, Link } from "react-router-dom";
 
+import Menu from "./Menu.js";
+
 export default function Head(props) {
   const { username, arrow } = props;
   const [menuDisplay, setMenuDisplay] = useState(null);
   const loc = useLocation();
-  const menu = (
-    <div id="menu-overlay">
-      <Link to="/register">
-        <button>Register</button>
-      </Link>
-      <Link to="/login">
-        <button>Login</button>
-      </Link>
-    </div>
-  );
+  const menu = <Menu />;
 
   function removeMenuBox() {
     if (menuDisplay) setMenuDisplay(null);
