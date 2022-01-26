@@ -3,20 +3,30 @@ import { useLocation, Routes, Route } from "react-router-dom";
 import Cookies from "universal-cookie";
 import axios from "axios";
 
+import Head from "./components/Head.js";
 import "./styles/App.css";
 
 export default function App() {
+  const [username, setUsername] = useState("User");
+  const arrow = useRef();
+  const loc = useLocation();
+
+  useEffect(() => {
+    if (loc.pathname === "/") {
+      arrow.current.style.transform = "rotateX(180deg)";
+    } else {
+      arrow.current.style.transform = "rotateY(180deg)";
+    }
+  }, [loc]);
+
   return (
     <table id="app">
       <thead>
-        <tr>
-          <th>Head</th>
-        </tr>
+        <Head username={username} arrow={arrow} />
       </thead>
       <tbody>
         <Routes>
           <Route
-            exact
             path="/"
             element={
               <tr>
