@@ -4,12 +4,16 @@ import axios from "axios";
 
 import UserFormHead from "./UserFormHead.js";
 import UserForm from "./UserForm.js";
+import EmailButton from "./EmailButton.js";
 
 export default function Login(props) {
   const { setUsername } = props;
   const [loginName, setLoginName] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
+  const [showButton, setShowButton] = useState(false);
+  const [mailMessage, setMailMessage] = useState("");
+  const [email, setEmail] = useState("");
   const loginUrl = "http://localhost:2000/login";
   const reqBody = {
     loginName: loginName,
@@ -23,10 +27,12 @@ export default function Login(props) {
   }, []);
 
   function login(data) {
-    cookie.set("PLSJwt", data[0]);
-    localStorage.setItem("loginData", data[1]);
-    setMessage(data[2]);
+    cookie.set("PLSJwt", data.token);
+    localStorage.setItem("loginData", data.loginName);
+    setMessage(data.message);
     setUsername(localStorage.getItem("loginData"));
+    setShowButton(false);
+    setMailMessage("");
   }
 
   function logout() {
@@ -34,6 +40,7 @@ export default function Login(props) {
     localStorage.removeItem("loginData");
     setMessage("Logged out!");
     setUsername("User");
+    setShowButton(false);
   }
 
   async function sendLoginData(e) {
@@ -42,7 +49,7 @@ export default function Login(props) {
     await axios
       .post(loginUrl, reqBody, { signal: controller.signal })
       .then((res) => {
-        if (Array.isArray(res.data)) {
+        if (res.data.loginName === loginName) {
           login(res.data);
           setLoginName("");
           setPassword("");
@@ -52,7 +59,7 @@ export default function Login(props) {
         setMessage(
           err.message === "Network Error"
             ? "Not connected to the server!"
-            : "Request aborted"
+            : "Request aborted!"
         );
       });
   }
@@ -83,6 +90,17 @@ export default function Login(props) {
           nameValue={loginName}
           passwordPlaceholder="Type in your password"
           passwordValue={password}
+          emailButton={
+            <EmailButton
+              loginName={loginName}
+              setShowButton={setShowButton}
+              setMailMessage={setMailMessage}
+              setEmail={setEmail}
+              email={email}
+              showButton={showButton}
+              mailMessage={mailMessage}
+            />
+          }
         />
       </td>
     </tr>

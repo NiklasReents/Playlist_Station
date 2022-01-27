@@ -12,6 +12,7 @@ export default function UserForm(props) {
     passwordValue,
     emailPlaceholder,
     emailValue,
+    emailButton,
   } = props;
 
   return (
@@ -48,7 +49,7 @@ export default function UserForm(props) {
               required
             />
           ) : (
-            <button>Forgot password?</button>
+            emailButton
           )}
         </div>
       </form>
