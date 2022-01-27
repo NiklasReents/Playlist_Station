@@ -12,6 +12,7 @@ export default function EmailButton(props) {
     mailMessage,
   } = props;
   const getUserUrl = "http://localhost:2000/login/getuser";
+  const sendMailUrl = "http://localhost:2000/sendmail";
   const controller = new AbortController();
 
   useEffect(() => {
@@ -42,9 +43,24 @@ export default function EmailButton(props) {
       });
   }
 
+  async function sendEmail(e) {
+    e.preventDefault();
+    await axios
+      .post(sendMailUrl, { email: email }, { signal: controller.signal })
+      .then((res) => setMailMessage(res.data))
+      .catch((err) =>
+        setMailMessage(
+          err.message === "Network Error"
+            ? "Not connected to the server!"
+            : "Failed to send email!"
+        )
+      );
+  }
+
   return (
     <div>
       <button
+        onClick={sendEmail}
         style={{
           visibility: !showButton ? "hidden" : "visible",
         }}
