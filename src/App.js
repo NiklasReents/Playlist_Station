@@ -6,6 +6,7 @@ import axios from "axios";
 import Head from "./components/Head.js";
 import Register from "./components/Register.js";
 import Login from "./components/Login.js";
+import ReceiveMail from "./components/ReceiveMail.js";
 import Foot from "./components/Foot.js";
 import "./styles/App.css";
 
@@ -13,6 +14,7 @@ export default function App() {
   const [username, setUsername] = useState(
     localStorage.getItem("loginData") || "User"
   );
+  const [tokenFound, setTokenFound] = useState(false);
   const [currentSong, setCurrentSong] = useState(null);
   const [songState, setSongState] = useState(null);
   const [listMode, setListMode] = useState("Single");
@@ -55,9 +57,10 @@ export default function App() {
           <Route
             path="/:tokenPath"
             element={
-              <tr>
-                <td>ReceiveMail</td>
-              </tr>
+              <ReceiveMail
+                setTokenFound={setTokenFound}
+                tokenFound={tokenFound}
+              />
             }
           />
           <Route
