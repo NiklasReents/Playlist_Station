@@ -13,8 +13,10 @@ export default function PasswordReset(props) {
   const [redirect, setRedirect] = useState(false);
   const timeOut = useRef(0);
   const loc = useLocation();
+  const deleteTokenUrl = "http://localhost:2000/sendmail/delete";
   const resetPWUrl = "http://localhost:2000/login/passwordreset";
   const email = loc.state[1];
+  const tokenPath = loc.state[0];
   const reqBody = {
     password: password,
     passwordConfirmed: passwordConfirmed,
@@ -24,10 +26,19 @@ export default function PasswordReset(props) {
 
   useEffect(() => {
     return () => {
+      deleteToken();
       controller.abort();
       clearTimeout(timeOut.current);
     };
   }, []);
+
+  function deleteToken() {
+    axios
+      .delete(deleteTokenUrl + "/" + tokenPath)
+      .then((res) => console.log(res.data))
+      .catch((err) => console.error(err));
+    setTokenFound(false);
+  }
 
   function sendPassword(e) {
     e.preventDefault();
