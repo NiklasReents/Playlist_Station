@@ -1,5 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
-import { useLocation, Routes, Route } from "react-router-dom";
+import { useLocation, Routes, Route, Navigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import axios from "axios";
 
@@ -7,6 +7,7 @@ import Head from "./components/Head.js";
 import Register from "./components/Register.js";
 import Login from "./components/Login.js";
 import ReceiveMail from "./components/ReceiveMail.js";
+import PasswordReset from "./components/PasswordReset.js";
 import Foot from "./components/Foot.js";
 import "./styles/App.css";
 
@@ -66,9 +67,11 @@ export default function App() {
           <Route
             path="passwordreset"
             element={
-              <tr>
-                <td>PasswordReset</td>
-              </tr>
+              tokenFound ? (
+                <PasswordReset setTokenFound={setTokenFound} />
+              ) : (
+                <Navigate to="/" />
+              )
             }
           />
         </Routes>

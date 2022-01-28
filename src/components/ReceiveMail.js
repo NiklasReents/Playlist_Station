@@ -50,14 +50,8 @@ export default function ReceiveMail(props) {
     </tr>
   ) : (
     <Navigate
-      to={
-        tokenFound
-          ? {
-              pathname: "/passwordreset",
-              state: { auth: [tokenPath, email] },
-            }
-          : "/"
-      }
+      to={tokenFound ? "/passwordreset" : "/"}
+      state={tokenFound ? [tokenPath, email] : null}
     />
   );
 }
