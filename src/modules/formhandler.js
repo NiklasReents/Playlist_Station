@@ -1,11 +1,33 @@
 class FormHandler {
-  constructor(imgRef, setImgValue, setImgLabel, audioRef, setAudioLabel) {
+  constructor(
+    urlBoxRef,
+    setUrlParameterBox,
+    imgRef,
+    setImgValue,
+    setImgLabel,
+    audioRef,
+    setAudioLabel,
+    urlBox,
+    imgUrl,
+    setImgButtonContent
+  ) {
+    this.urlBoxRef = urlBoxRef;
+    this.setUrlParameterBox = setUrlParameterBox;
     this.imgRef = imgRef;
     this.setImgValue = setImgValue;
     this.setImgLabel = setImgLabel;
     this.audioRef = audioRef;
     this.setAudioLabel = setAudioLabel;
+    this.urlBox = urlBox;
+    this.imgUrl = imgUrl;
+    this.setImgButtonContent = setImgButtonContent;
   }
+
+  removeParameterBox = (e) => {
+    if (!this.urlBoxRef.current.contains(e.target)) {
+      this.setUrlParameterBox(<></>);
+    }
+  };
 
   validateImageUpload = () => {
     const imgExt = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
@@ -31,6 +53,36 @@ class FormHandler {
       this.audioRef.current.value = "";
       this.setAudioLabel("Add an audio file.");
     }
+  };
+
+  displayParameterBox = () => {
+    if (this.imgRef.current.type === "text") {
+      this.setUrlParameterBox(this.urlBox);
+    }
+  };
+
+  showUrlField = () => {
+    this.imgRef.current.type = "text";
+    this.imgRef.current.readOnly = true;
+    this.setImgValue(this.imgUrl);
+    this.setImgButtonContent("O");
+    this.setImgLabel("Add an image url.");
+  };
+
+  showFileField = () => {
+    this.imgRef.current.type = "file";
+    this.imgRef.current.readOnly = false;
+    this.setUrlParameterBox(<></>);
+    this.setImgValue("");
+    this.setImgButtonContent("X");
+    this.setImgLabel("Add an image file.");
+  };
+
+  switchInput = (e) => {
+    e.preventDefault();
+    if (this.imgRef.current.type === "file") {
+      this.showUrlField();
+    } else this.showFileField();
   };
 
   validateAudioUpload = () => {
