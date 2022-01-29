@@ -7,7 +7,7 @@ import UserForm from "./UserForm.js";
 import EmailButton from "./EmailButton.js";
 
 export default function Login(props) {
-  const { setUsername } = props;
+  const { setUsername, setFormDisabled } = props;
   const [loginName, setLoginName] = useState("");
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
@@ -31,6 +31,7 @@ export default function Login(props) {
     localStorage.setItem("loginData", data.loginName);
     setMessage(data.message);
     setUsername(localStorage.getItem("loginData"));
+    setFormDisabled(false);
     setShowButton(false);
     setMailMessage("");
   }
@@ -40,6 +41,7 @@ export default function Login(props) {
     localStorage.removeItem("loginData");
     setMessage("Logged out!");
     setUsername("User");
+    setFormDisabled(true);
     setShowButton(false);
   }
 

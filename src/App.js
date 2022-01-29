@@ -55,7 +55,15 @@ export default function App() {
             }
           />
           <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login setUsername={setUsername} />} />
+          <Route
+            path="/login"
+            element={
+              <Login
+                setUsername={setUsername}
+                setFormDisabled={setFormDisabled}
+              />
+            }
+          />
           <Route
             path="/:tokenPath"
             element={
