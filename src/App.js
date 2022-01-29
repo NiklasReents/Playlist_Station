@@ -4,6 +4,7 @@ import Cookies from "universal-cookie";
 import axios from "axios";
 
 import Head from "./components/Head.js";
+import Form from "./components/Form.js";
 import Register from "./components/Register.js";
 import Login from "./components/Login.js";
 import ReceiveMail from "./components/ReceiveMail.js";
@@ -15,6 +16,8 @@ export default function App() {
   const [username, setUsername] = useState(
     localStorage.getItem("loginData") || "User"
   );
+  const [formDisabled, setFormDisabled] = useState(true);
+  const [statusMessage, setStatusMessage] = useState("");
   const [tokenFound, setTokenFound] = useState(false);
   const [currentSong, setCurrentSong] = useState(null);
   const [songState, setSongState] = useState(null);
@@ -40,9 +43,7 @@ export default function App() {
           <Route
             path="/"
             element={
-              <tr>
-                <td>Form</td>
-              </tr>
+              <Form formDisabled={formDisabled} statusMessage={statusMessage} />
             }
           />
           <Route
