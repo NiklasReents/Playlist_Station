@@ -51,8 +51,11 @@ export default function App() {
     setStatusMessage,
     resStatus,
     pending,
+    renderPlaylist,
   ];
+  const fetchArgs = [axios, playlistUrl, cookie, controller, setPlaylistData];
   const networkHandler = new NetworkHandler(...networkArgs);
+  const fetchHandler = new FetchHandler(...fetchArgs);
 
   useEffect(() => {
     axios
@@ -69,6 +72,9 @@ export default function App() {
       arrow.current.style.transform = "rotateX(180deg)";
     } else {
       arrow.current.style.transform = "rotateY(180deg)";
+    }
+    if (loc.pathname === "/" || loc.pathname === "/playlists") {
+      fetchHandler.fetchList();
     }
     return () => controller.abort();
   }, [loc]);
