@@ -31,6 +31,7 @@ export default function App() {
   const [currentImg, setCurrentImg] = useState([]);
   const [currentSong, setCurrentSong] = useState(null);
   const [songState, setSongState] = useState(null);
+  const [imgFile, setImgFile] = useState("");
   const [currentList, setCurrentList] = useState("");
   const [tokenFound, setTokenFound] = useState(false);
   const [listMode, setListMode] = useState("Single");
@@ -42,7 +43,9 @@ export default function App() {
   const loc = useLocation();
   const pending = <Pending bodyState={bodyState} />;
   const playlistUrl = "http://localhost:2000/playlists";
+  const imgUrl = `http://localhost:2000/playlists/images/${imgPath.current}`;
   const serverUrl = "http://localhost:2000";
+  const imgExt = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
   const cookie = new Cookies();
   const controller = new AbortController();
   const networkArgs = [
@@ -66,7 +69,15 @@ export default function App() {
     setCurrentSong,
     setSongState,
   ];
-  const fetchArgs = [axios, playlistUrl, cookie, controller, setPlaylistData];
+  const fetchArgs = [
+    axios,
+    playlistUrl,
+    cookie,
+    controller,
+    setPlaylistData,
+    imgUrl,
+    setImgFile,
+  ];
   const imgArgs = [
     renderPlaylist,
     currentImg,
@@ -99,6 +110,11 @@ export default function App() {
     return () => controller.abort();
   }, [loc]);
 
+  useEffect(() => {
+    if (imgExt.test(imgPath.current)) fetchHandler.fetchImage();
+    return () => controller.abort();
+  }, [imgUrl]);
+
   function renderPlaylist() {
     return playlistData[playlistIndex].values.map((v, ind) => {
       const imageHandler = new ImageHandler(ind, ...imgArgs);
@@ -109,7 +125,7 @@ export default function App() {
           setSongState={setSongState}
           currentImg={currentImg[ind]}
           imgStr={v.imagefile}
-          imgFile=""
+          imgFile={imgFile}
           imageHandler={imageHandler}
           audioStr={v.songfile}
           name={v.song}
