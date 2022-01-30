@@ -2,6 +2,7 @@ class RouteHandler {
   constructor(
     loc,
     arrow,
+    audioElement,
     songPath,
     currentImage,
     setCurrentSong,
@@ -9,6 +10,7 @@ class RouteHandler {
   ) {
     this.loc = loc;
     this.arrow = arrow;
+    this.audioElement = audioElement;
     this.songPath = songPath;
     this.currentImage = currentImage;
     this.setCurrentSong = setCurrentSong;
@@ -22,6 +24,7 @@ class RouteHandler {
   };
 
   resetImages = () => {
+    this.audioElement.load();
     this.songPath.current = "";
     this.currentImage.fill("none");
     this.setCurrentSong(null);

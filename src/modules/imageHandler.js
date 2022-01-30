@@ -2,6 +2,7 @@ class ImageHandler {
   constructor(
     ind,
     renderPlaylist,
+    audioElement,
     currentImg,
     imgPath,
     songPath,
@@ -12,6 +13,7 @@ class ImageHandler {
   ) {
     this.ind = ind;
     this.renderPlaylist = renderPlaylist;
+    this.audioElement = audioElement;
     this.currentImg = currentImg;
     this.imgPath = imgPath;
     this.songPath = songPath;
@@ -27,6 +29,7 @@ class ImageHandler {
     for (i; i < len; i++) {
       const props = this.renderPlaylist()[i].props;
       if (props.index !== this.ind) {
+        this.audioElement.load();
         this.currentImg[i] = "none";
       }
     }
@@ -47,6 +50,7 @@ class ImageHandler {
   };
 
   closeImage = () => {
+    this.audioElement.load();
     this.songPath.current = "";
     this.currentImg[this.ind] = "none";
     this.setCurrentImg(this.currentImg);

@@ -67,6 +67,7 @@ export default function App() {
   const routeArgs = [
     loc,
     arrow,
+    audioElement,
     songPath,
     currentImg,
     setCurrentSong,
@@ -85,6 +86,7 @@ export default function App() {
   ];
   const imgArgs = [
     renderPlaylist,
+    audioElement,
     currentImg,
     imgPath,
     songPath,
@@ -119,7 +121,7 @@ export default function App() {
     if (imgExt.test(imgPath.current)) fetchHandler.fetchImage();
     if (songPath.current) fetchHandler.fetchSong();
     return () => controller.abort();
-  }, [imgUrl]);
+  }, [imgUrl, songUrl]);
 
   function renderPlaylist() {
     return playlistData[playlistIndex].values.map((v, ind) => {
