@@ -101,7 +101,15 @@ export default function App() {
   return (
     <table id="app">
       <thead>
-        <Head username={username} arrow={arrow} />
+        <Head
+          playlistData={playlistData}
+          setCurrentList={setCurrentList}
+          setPlaylistIndex={setPlaylistIndex}
+          playlistIndex={playlistIndex}
+          username={username}
+          currentList={currentList}
+          arrow={arrow}
+        />
       </thead>
       <tbody>
         <Routes>
