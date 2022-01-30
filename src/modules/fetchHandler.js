@@ -6,7 +6,9 @@ class FetchHandler {
     controller,
     setPlaylistData,
     imgUrl,
-    setImgFile
+    setImgFile,
+    songUrl,
+    setSongFile
   ) {
     this.axios = axios;
     this.playlistUrl = playlistUrl;
@@ -15,6 +17,8 @@ class FetchHandler {
     this.setPlaylistData = setPlaylistData;
     this.imgUrl = imgUrl;
     this.setImgFile = setImgFile;
+    this.songUrl = songUrl;
+    this.setSongFile = setSongFile;
   }
 
   async fetchData(url, method, decode) {
@@ -41,6 +45,15 @@ class FetchHandler {
       .then((img) => {
         const fileUrl = URL.createObjectURL(img);
         this.setImgFile(fileUrl);
+      })
+      .catch((err) => console.error(err));
+  };
+
+  fetchSong = () => {
+    this.fetchData(this.songUrl, "get", "blob")
+      .then((song) => {
+        const fileUrl = URL.createObjectURL(song);
+        this.setSongFile(fileUrl);
       })
       .catch((err) => console.error(err));
   };
