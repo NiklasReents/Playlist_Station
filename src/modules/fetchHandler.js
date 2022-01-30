@@ -12,7 +12,7 @@ class FetchHandler {
       url: url,
       method: method,
       headers: url === this.playlistUrl && {
-        authorization: this.cookie.get("Jwt"),
+        authorization: this.cookie.get("PLSJwt"),
       },
       responseType: decode,
       signal: this.controller.signal,

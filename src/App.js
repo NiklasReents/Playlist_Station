@@ -4,6 +4,7 @@ import Cookies from "universal-cookie";
 import axios from "axios";
 
 import Pending from "./components/Pending.js";
+import SongElement from "./components/SongElement.js";
 import Head from "./components/Head.js";
 import Form from "./components/Form.js";
 import Register from "./components/Register.js";
@@ -13,6 +14,7 @@ import PasswordReset from "./components/PasswordReset.js";
 import Foot from "./components/Foot.js";
 import "./styles/App.css";
 import { NetworkHandler } from "./modules/networkHandler.js";
+import { FetchHandler } from "./modules/fetchHandler.js";
 
 export default function App() {
   const [bodyState, setBodyState] = useState();
@@ -24,6 +26,7 @@ export default function App() {
   const [playlistIndex, setPlaylistIndex] = useState(0);
   const [statusMessage, setStatusMessage] = useState("");
   const [resStatus, setResStatus] = useState("");
+  const [currentImg, setCurrentImg] = useState([]);
   const [currentList, setCurrentList] = useState("");
   const [tokenFound, setTokenFound] = useState(false);
   const [currentSong, setCurrentSong] = useState(null);
@@ -33,8 +36,10 @@ export default function App() {
   const arrow = useRef();
   const loc = useLocation();
   const pending = <Pending bodyState={bodyState} />;
+  const playlistUrl = "http://localhost:2000/playlists";
   const serverUrl = "http://localhost:2000";
   const cookie = new Cookies();
+  const controller = new AbortController();
   const networkArgs = [
     cookie,
     setUsername,
@@ -65,7 +70,27 @@ export default function App() {
     } else {
       arrow.current.style.transform = "rotateY(180deg)";
     }
+    return () => controller.abort();
   }, [loc]);
+
+  function renderPlaylist() {
+    return playlistData[playlistIndex].values.map((v, ind) => {
+      return (
+        <SongElement
+          key={v._id}
+          index={ind}
+          setSongState={setSongState}
+          currentImg={currentImg[ind]}
+          imgStr={v.imagefile}
+          imgFile=""
+          audioStr={v.songfile}
+          name={v.song}
+          artist={v.artist}
+          genre={v.genre}
+        />
+      );
+    });
+  }
 
   return (
     <table id="app">
