@@ -12,11 +12,11 @@ import Login from "./components/Login.js";
 import ReceiveMail from "./components/ReceiveMail.js";
 import PasswordReset from "./components/PasswordReset.js";
 import Foot from "./components/Foot.js";
-import "./styles/App.css";
 import { NetworkHandler } from "./modules/networkHandler.js";
 import { RouteHandler } from "./modules/routeHandler.js";
 import { FetchHandler } from "./modules/fetchHandler.js";
 import { ImageHandler } from "./modules/imageHandler.js";
+import "./styles/App.css";
 
 export default function App() {
   const [bodyState, setBodyState] = useState();
@@ -32,6 +32,7 @@ export default function App() {
   const [currentSong, setCurrentSong] = useState(null);
   const [songState, setSongState] = useState(null);
   const [imgFile, setImgFile] = useState("");
+  const [songFile, setSongFile] = useState("");
   const [currentList, setCurrentList] = useState("");
   const [tokenFound, setTokenFound] = useState(false);
   const [listMode, setListMode] = useState("Single");
@@ -44,9 +45,11 @@ export default function App() {
   const pending = <Pending bodyState={bodyState} />;
   const playlistUrl = "http://localhost:2000/playlists";
   const imgUrl = `http://localhost:2000/playlists/images/${imgPath.current}`;
+  const songUrl = `http://localhost:2000/playlists/songs/${songPath.current}`;
   const serverUrl = "http://localhost:2000";
   const imgExt = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
   const cookie = new Cookies();
+  const audioElement = new Audio();
   const controller = new AbortController();
   const networkArgs = [
     cookie,
@@ -77,6 +80,8 @@ export default function App() {
     setPlaylistData,
     imgUrl,
     setImgFile,
+    songUrl,
+    setSongFile,
   ];
   const imgArgs = [
     renderPlaylist,
@@ -112,6 +117,7 @@ export default function App() {
 
   useEffect(() => {
     if (imgExt.test(imgPath.current)) fetchHandler.fetchImage();
+    if (songPath.current) fetchHandler.fetchSong();
     return () => controller.abort();
   }, [imgUrl]);
 
@@ -121,6 +127,8 @@ export default function App() {
       return (
         <SongElement
           key={v._id}
+          songFile={songFile}
+          audioElement={audioElement}
           index={ind}
           setSongState={setSongState}
           currentImg={currentImg[ind]}
@@ -179,7 +187,7 @@ export default function App() {
             }
           />
           <Route
-            path="passwordreset"
+            path="/passwordreset"
             element={
               tokenFound ? (
                 <PasswordReset setTokenFound={setTokenFound} />

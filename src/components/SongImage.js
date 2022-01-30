@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 
 export default function SongImage(props) {
-  const { currentImg, imgSrc } = props;
+  const { audioElement, setSongState, currentImg, imgSrc } = props;
   const imgElement = useRef();
   const progressBar = useRef();
 
