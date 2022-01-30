@@ -14,6 +14,7 @@ import PasswordReset from "./components/PasswordReset.js";
 import Foot from "./components/Foot.js";
 import "./styles/App.css";
 import { NetworkHandler } from "./modules/networkHandler.js";
+import { RouteHandler } from "./modules/routeHandler.js";
 import { FetchHandler } from "./modules/fetchHandler.js";
 import { ImageHandler } from "./modules/imageHandler.js";
 
@@ -57,6 +58,14 @@ export default function App() {
     pending,
     renderPlaylist,
   ];
+  const routeArgs = [
+    loc,
+    arrow,
+    songPath,
+    currentImg,
+    setCurrentSong,
+    setSongState,
+  ];
   const fetchArgs = [axios, playlistUrl, cookie, controller, setPlaylistData];
   const imgArgs = [
     renderPlaylist,
@@ -69,6 +78,7 @@ export default function App() {
     imgDisplayed,
   ];
   const networkHandler = new NetworkHandler(...networkArgs);
+  const routeHandler = new RouteHandler(...routeArgs);
   const fetchHandler = new FetchHandler(...fetchArgs);
 
   useEffect(() => {
@@ -82,11 +92,7 @@ export default function App() {
   });
 
   useEffect(() => {
-    if (loc.pathname === "/") {
-      arrow.current.style.transform = "rotateX(180deg)";
-    } else {
-      arrow.current.style.transform = "rotateY(180deg)";
-    }
+    routeHandler.setArrow();
     if (loc.pathname === "/" || loc.pathname === "/playlists") {
       fetchHandler.fetchList();
     }
@@ -118,6 +124,7 @@ export default function App() {
     <table id="app">
       <thead>
         <Head
+          routeHandler={routeHandler}
           playlistData={playlistData}
           setCurrentList={setCurrentList}
           setPlaylistIndex={setPlaylistIndex}

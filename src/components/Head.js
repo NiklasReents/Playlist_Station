@@ -5,6 +5,7 @@ import Menu from "./Menu.js";
 
 export default function Head(props) {
   const {
+    routeHandler,
     playlistData,
     setCurrentList,
     setPlaylistIndex,
@@ -16,9 +17,10 @@ export default function Head(props) {
   const [menuDisplay, setMenuDisplay] = useState(null);
   const playlistSelection = useRef([]);
   const loc = useLocation();
-  const menu = <Menu />;
+  const menu = <Menu routeHandler={routeHandler} />;
 
   function changePlaylist(e) {
+    routeHandler.resetImages();
     let i = 0;
     let len = playlistData.length;
     let index;
@@ -70,7 +72,12 @@ export default function Head(props) {
     <tr onClick={removeMenuBox} id="head">
       <th>
         <Link to={loc.pathname === "/" ? "/playlists" : "/"}>
-          <img ref={arrow} src="images/right-arrow.png" alt="Change View" />
+          <img
+            onClick={routeHandler.resetImages}
+            ref={arrow}
+            src="images/right-arrow.png"
+            alt="Change View"
+          />
         </Link>
       </th>
       <th>{changeHeadDisplay()}</th>

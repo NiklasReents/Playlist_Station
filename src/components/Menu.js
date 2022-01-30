@@ -1,14 +1,15 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-export default function Menu() {
+export default function Menu(props) {
+  const { routeHandler } = props;
   return (
     <div id="menu-overlay">
       <Link to="/register">
-        <button>Register</button>
+        <button onClick={routeHandler.resetImages}>Register</button>
       </Link>
       <Link to="/login">
-        <button>Login</button>
+        <button onClick={routeHandler.resetImages}>Login</button>
       </Link>
     </div>
   );
