@@ -9,6 +9,7 @@ export default function SongElement(props) {
     currentImg = "none",
     imgStr,
     imgFile,
+    imageHandler,
     name,
     artist,
     genre,
@@ -22,7 +23,7 @@ export default function SongElement(props) {
         currentImg={currentImg}
         imgSrc={imgExt.test(imgStr) ? imgFile : imgStr}
       />
-      <td>
+      <td onClick={() => imageHandler.toggleImage(index)}>
         <span>{name}</span>
         <span>{artist}</span>
         <span>{genre}</span>

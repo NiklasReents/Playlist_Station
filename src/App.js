@@ -15,6 +15,7 @@ import Foot from "./components/Foot.js";
 import "./styles/App.css";
 import { NetworkHandler } from "./modules/networkHandler.js";
 import { FetchHandler } from "./modules/fetchHandler.js";
+import { ImageHandler } from "./modules/imageHandler.js";
 
 export default function App() {
   const [bodyState, setBodyState] = useState();
@@ -27,13 +28,16 @@ export default function App() {
   const [statusMessage, setStatusMessage] = useState("");
   const [resStatus, setResStatus] = useState("");
   const [currentImg, setCurrentImg] = useState([]);
-  const [currentList, setCurrentList] = useState("");
-  const [tokenFound, setTokenFound] = useState(false);
   const [currentSong, setCurrentSong] = useState(null);
   const [songState, setSongState] = useState(null);
+  const [currentList, setCurrentList] = useState("");
+  const [tokenFound, setTokenFound] = useState(false);
   const [listMode, setListMode] = useState("Single");
-  const userLoggedIn = useRef();
+  const imgPath = useRef("");
+  const songPath = useRef("");
+  const userLoggedIn = useRef(false);
   const arrow = useRef();
+  const imgDisplayed = useRef(false);
   const loc = useLocation();
   const pending = <Pending bodyState={bodyState} />;
   const playlistUrl = "http://localhost:2000/playlists";
@@ -54,6 +58,16 @@ export default function App() {
     renderPlaylist,
   ];
   const fetchArgs = [axios, playlistUrl, cookie, controller, setPlaylistData];
+  const imgArgs = [
+    renderPlaylist,
+    currentImg,
+    imgPath,
+    songPath,
+    setCurrentImg,
+    setCurrentSong,
+    setSongState,
+    imgDisplayed,
+  ];
   const networkHandler = new NetworkHandler(...networkArgs);
   const fetchHandler = new FetchHandler(...fetchArgs);
 
@@ -81,6 +95,7 @@ export default function App() {
 
   function renderPlaylist() {
     return playlistData[playlistIndex].values.map((v, ind) => {
+      const imageHandler = new ImageHandler(ind, ...imgArgs);
       return (
         <SongElement
           key={v._id}
@@ -89,6 +104,7 @@ export default function App() {
           currentImg={currentImg[ind]}
           imgStr={v.imagefile}
           imgFile=""
+          imageHandler={imageHandler}
           audioStr={v.songfile}
           name={v.song}
           artist={v.artist}
