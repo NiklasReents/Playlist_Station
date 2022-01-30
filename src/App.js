@@ -34,6 +34,7 @@ export default function App() {
   const arrow = useRef();
   const loc = useLocation();
   const pending = <Pending bodyState={bodyState} />;
+  const serverUrl = "http://localhost:2000";
   const cookie = new Cookies();
   const networkArgs = [
     cookie,
@@ -47,6 +48,17 @@ export default function App() {
     resStatus,
     pending,
   ];
+  const networkHandler = new NetworkHandler(...networkArgs);
+
+  useEffect(() => {
+    axios
+      .get(serverUrl)
+      .then((res) => setResStatus(res.statusText))
+      .catch((err) => setResStatus(err.message));
+    networkHandler.checkWebStorage();
+    networkHandler.checkLoginStatus();
+    networkHandler.checkConnection();
+  });
 
   useEffect(() => {
     if (loc.pathname === "/") {
