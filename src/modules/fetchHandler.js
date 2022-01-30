@@ -46,4 +46,13 @@ class FetchHandler {
   };
 }
 
+fetchImage = () => {
+  this.fetchData(this.imgUrl, "get", "blob")
+    .then((img) => {
+      const fileUrl = URL.createObjectURL(img);
+      this.setImgFile(fileUrl);
+    })
+    .catch((err) => console.error(err));
+};
+
 export { FetchHandler };
