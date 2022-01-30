@@ -24,7 +24,6 @@ export default function App() {
   const [playlistIndex, setPlaylistIndex] = useState(0);
   const [statusMessage, setStatusMessage] = useState("");
   const [resStatus, setResStatus] = useState("");
-  const [appBody, setAppBody] = useState();
   const [currentList, setCurrentList] = useState("");
   const [tokenFound, setTokenFound] = useState(false);
   const [currentSong, setCurrentSong] = useState(null);
@@ -81,14 +80,7 @@ export default function App() {
               <Form formDisabled={formDisabled} statusMessage={statusMessage} />
             }
           />
-          <Route
-            path="/playlists"
-            element={
-              <tr>
-                <td>Playlists</td>
-              </tr>
-            }
-          />
+          <Route path="/playlists" element={networkHandler.bodyStatus()} />
           <Route path="/register" element={<Register />} />
           <Route
             path="/login"
