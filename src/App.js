@@ -3,6 +3,7 @@ import { useLocation, Routes, Route, Navigate } from "react-router-dom";
 import Cookies from "universal-cookie";
 import axios from "axios";
 
+import Pending from "./components/Pending.js";
 import Head from "./components/Head.js";
 import Form from "./components/Form.js";
 import Register from "./components/Register.js";
@@ -11,19 +12,41 @@ import ReceiveMail from "./components/ReceiveMail.js";
 import PasswordReset from "./components/PasswordReset.js";
 import Foot from "./components/Foot.js";
 import "./styles/App.css";
+import { NetworkHandler } from "./modules/networkHandler.js";
 
 export default function App() {
+  const [bodyState, setBodyState] = useState();
   const [username, setUsername] = useState(
     localStorage.getItem("loginData") || "User"
   );
   const [formDisabled, setFormDisabled] = useState(true);
+  const [playlistData, setPlaylistData] = useState();
+  const [playlistIndex, setPlaylistIndex] = useState(0);
   const [statusMessage, setStatusMessage] = useState("");
+  const [resStatus, setResStatus] = useState("");
+  const [appBody, setAppBody] = useState();
+  const [currentList, setCurrentList] = useState("");
   const [tokenFound, setTokenFound] = useState(false);
   const [currentSong, setCurrentSong] = useState(null);
   const [songState, setSongState] = useState(null);
   const [listMode, setListMode] = useState("Single");
+  const userLoggedIn = useRef();
   const arrow = useRef();
   const loc = useLocation();
+  const pending = <Pending bodyState={bodyState} />;
+  const cookie = new Cookies();
+  const networkArgs = [
+    cookie,
+    setUsername,
+    userLoggedIn,
+    setFormDisabled,
+    playlistData,
+    playlistIndex,
+    setBodyState,
+    setStatusMessage,
+    resStatus,
+    pending,
+  ];
 
   useEffect(() => {
     if (loc.pathname === "/") {
