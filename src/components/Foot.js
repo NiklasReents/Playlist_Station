@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
 export default function Foot(props) {
-  const { currentSong, songState, setListMode, listMode } = props;
+  const { currentSong, songState, listMode } = props;
   const [playlistStatus, setPlaylistStatus] = useState(
     "images/play-button.png"
   );
@@ -24,13 +24,13 @@ export default function Foot(props) {
   function switchPlaylistStatus() {
     if (playlistStatus === "images/play-button.png") {
       setPlaylistStatus("images/playlist.png");
-      setListMode("List");
+      listMode.current = "List";
     } else if (playlistStatus === "images/playlist.png") {
       setPlaylistStatus("images/shuffle.png");
-      setListMode("Shuffle");
+      listMode.current = "Shuffle";
     } else {
       setPlaylistStatus("images/play-button.png");
-      setListMode("Single");
+      listMode.current = "Single";
     }
   }
 
@@ -49,7 +49,7 @@ export default function Foot(props) {
             src={playlistStatus}
             alt="Switch Mode"
           />
-          <div>{listMode}</div>
+          <div>{listMode.current}</div>
         </div>
       </td>
     </tr>

@@ -35,12 +35,12 @@ export default function App() {
   const [songFile, setSongFile] = useState("");
   const [currentList, setCurrentList] = useState("");
   const [tokenFound, setTokenFound] = useState(false);
-  const [listMode, setListMode] = useState("Single");
   const imgPath = useRef("");
   const songPath = useRef("");
   const userLoggedIn = useRef(false);
   const arrow = useRef();
   const imgDisplayed = useRef(false);
+  const listMode = useRef("Single");
   const loc = useLocation();
   const pending = <Pending bodyState={bodyState} />;
   const playlistUrl = "http://localhost:2000/playlists";
@@ -204,7 +204,6 @@ export default function App() {
         <Foot
           currentSong={currentSong}
           songState={songState}
-          setListMode={setListMode}
           listMode={listMode}
         />
       </tfoot>
