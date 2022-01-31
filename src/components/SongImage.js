@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
 
 export default function SongImage(props) {
-  const { audioElement, setSongState, currentImg, imgSrc } = props;
+  const { audioElement, /*setSongState,*/ currentImg, imgSrc } = props;
   const imgElement = useRef();
   const progressBar = useRef();
   const songStarted = useRef(false);
@@ -41,12 +41,36 @@ export default function SongImage(props) {
     audioElement.onended = () => audioEnded();
   }
 
+  function decreaseVolume() {
+    audioElement.volume = parseFloat(audioElement.volume.toFixed(1));
+    if (audioElement.currentTime === 0) return;
+    else if (audioElement.volume > 0.0) {
+      audioElement.volume -= 0.1;
+    } else audioElement.volume = 0.0;
+  }
+
+  function increaseVolume() {
+    audioElement.volume = parseFloat(audioElement.volume.toFixed(1));
+    if (audioElement.currentTime === 0) return;
+    else if (audioElement.volume < 1.0) {
+      audioElement.volume += 0.1;
+    } else audioElement.volume = 1.0;
+  }
+
   return (
     <td id="image-element" style={{ display: currentImg }}>
       <div>
-        <img src="images/minus.png" alt="Decrease Volume" />
+        <img
+          onClick={decreaseVolume}
+          src="images/minus.png"
+          alt="Decrease Volume"
+        />
         <img onClick={handleAudio} ref={imgElement} src={imgSrc} alt="" />
-        <img src="images/plus.png" alt="Increase Volume" />
+        <img
+          onClick={increaseVolume}
+          src="images/plus.png"
+          alt="Increase Volume"
+        />
       </div>
       <div id="progress-bar-container">
         <div ref={progressBar} id="progress-bar"></div>
