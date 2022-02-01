@@ -1,5 +1,7 @@
 import React from "react";
 
+import "../styles/Userform.css";
+
 export default function UserFormHead(props) {
   const { loggedIn, title, logout, message } = props;
 

@@ -160,7 +160,7 @@ export default function App() {
           arrow={arrow}
         />
       </thead>
-      <tbody>
+      <tbody id="body">
         <Routes>
           <Route
             path="/"

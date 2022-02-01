@@ -1,5 +1,7 @@
 import React from "react";
 
+import "../styles/Form.css";
+
 export default function PlaylistForm(props) {
   const {
     sendForm,

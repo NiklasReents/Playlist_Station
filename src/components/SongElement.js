@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 
 import SongImage from "./SongImage.js";
+import "../styles/Body.css";
 
 export default function SongElement(props) {
   const {

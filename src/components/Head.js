@@ -2,6 +2,7 @@ import React, { useState, useRef } from "react";
 import { useLocation, Link } from "react-router-dom";
 
 import Menu from "./Menu.js";
+import "../styles/Head.css";
 
 export default function Head(props) {
   const {

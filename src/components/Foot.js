@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useLocation } from "react-router-dom";
 
+import "../styles/Foot.css";
+
 export default function Foot(props) {
   const { currentSong, songState, listMode } = props;
   const [playlistStatus, setPlaylistStatus] = useState(

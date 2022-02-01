@@ -1,5 +1,7 @@
 import React from "react";
 
+import "../styles/Userform.css";
+
 export default function UserForm(props) {
   const {
     sendUserData,
