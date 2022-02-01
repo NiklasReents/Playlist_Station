@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from "react";
 import { useLocation, useParams, Navigate } from "react-router-dom";
 import axios from "axios";
 
+import Pending from "./Pending.js";
+
 export default function ReceiveMail(props) {
   const { setTokenFound, tokenFound } = props;
   const [email, setEmail] = useState("");
@@ -43,11 +45,7 @@ export default function ReceiveMail(props) {
   }, []);
 
   return !redirect ? (
-    <tr>
-      <td>
-        <strong>{message}</strong>
-      </td>
-    </tr>
+    <Pending bodyState={message} />
   ) : (
     <Navigate
       to={tokenFound ? "/passwordreset" : "/"}
