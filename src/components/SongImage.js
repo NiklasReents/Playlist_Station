@@ -1,33 +1,60 @@
-import React, { useRef } from "react";
+import React, { useRef, useEffect } from "react";
 
 export default function SongImage(props) {
   const { audioElement, /*setSongState,*/ currentImg, imgSrc } = props;
-  const imgElement = useRef();
-  const progressBar = useRef();
   const songStarted = useRef(false);
   const songPlaying = useRef(false);
+  const progressBar = useRef();
+  const imgElement = useRef();
+
+  useEffect(() => {
+    songStarted.current = false;
+    songPlaying.current = false;
+    resetAnimation();
+  }, [currentImg]);
+
+  function resetAnimation() {
+    progressBar.current.style.animation = "none";
+    imgElement.current.style.animation = "none";
+  }
+
+  function startAnimation() {
+    progressBar.current.style.animationDuration = audioElement.duration + "s";
+    imgElement.current.style.animationPlayState = "running";
+    progressBar.current.style.animationPlayState = "running";
+  }
+
+  function suspendAnimation() {
+    imgElement.current.style.animationPlayState = "paused";
+    progressBar.current.style.animationPlayState = "paused";
+  }
 
   function resetSong() {
+    resetAnimation();
     songStarted.current = true;
     setTimeout(() => {
+      progressBar.current.style.animation = "";
+      imgElement.current.style.animation = "";
       handleAudio();
     }, 100);
-    //needs to be adjusted: replaying a song requires a doubleclick
   }
 
   async function playAudio() {
     await audioElement.play();
+    startAnimation();
     //setSongState("Song playing");
     songPlaying.current = true;
   }
 
   async function pauseAudio() {
     await audioElement.pause();
+    suspendAnimation();
     //setSongState("Song suspended");
     songPlaying.current = false;
   }
 
   function audioEnded() {
+    suspendAnimation();
     //setSongState("Song ended");
     songStarted.current = false;
   }
