@@ -1,0 +1,113 @@
+#form {
+  height: 400px;
+  width: inherit;
+  display: flex;
+  justify-content: center;
+  background-image: linear-gradient(
+    to bottom,
+    #8b0000,
+    #ff0000,
+    #ff8c00,
+    #ffa500
+  );
+  background-repeat: no-repeat;
+}
+
+#form td {
+  height: inherit;
+  width: 330px;
+  display: flex;
+  padding: 0px 10px;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+#form form {
+  height: inherit;
+  width: inherit;
+  display: flex;
+  justify-content: space-around;
+  flex-direction: column;
+}
+
+#form label[for="imagefile"],
+label[for="songfile"] {
+  margin-left: 3px;
+}
+
+#form input[name="imagefile"],
+input[name="songfile"] {
+  height: 22px;
+  width: 80%;
+  margin-top: 3px;
+}
+
+#form button {
+  height: auto;
+  width: 24px;
+}
+
+#form img {
+  height: 12px;
+  width: 12px;
+}
+
+#submit-overlay {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 46px;
+  z-index: 1;
+  padding: 5px;
+  margin: 7.5px;
+  border: 2px solid #3b3737;
+  border-radius: 5px;
+  box-shadow: 0px 2px 15px 0px;
+  text-align: center;
+  background: rgba(192, 192, 192, 0.5);
+}
+
+#submit-overlay::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  right: 47%;
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent transparent #3b3737 transparent;
+}
+
+#parameter-overlay {
+  width: auto;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 209px;
+  right: 81px;
+  z-index: 1;
+  padding: 5px;
+  margin: 7.5px;
+  border: 2px solid #3b3737;
+  border-radius: 5px;
+  box-shadow: 0px 2px 15px 0px;
+  background: rgba(192, 192, 192, 0.9);
+}
+
+#parameter-overlay div {
+  display: flex;
+  justify-content: space-between;
+  padding: 2px 0px;
+}
+
+#parameter-overlay label {
+  width: 80%;
+}
+
+#parameter-overlay span {
+  background-color: #9acd32;
+}
+
+#playlist-form input[type="submit"],
+#parameter-overlay button {
+  width: 100%;
+}

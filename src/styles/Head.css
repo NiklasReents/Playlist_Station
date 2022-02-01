@@ -1,0 +1,48 @@
+#head {
+  height: 100px;
+  width: inherit;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0px 10px;
+  border-bottom: 0.5px solid #3b3737;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  background-image: linear-gradient(
+    to top right,
+    #8b0000,
+    #ff0000,
+    #ff8c00,
+    #ffa500
+  );
+  background-repeat: no-repeat;
+}
+
+#menu-overlay {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 10px;
+  z-index: 1;
+  padding: 5px;
+  border: 2px solid #3b3737;
+  border-radius: 5px;
+  box-shadow: 0px 2px 15px 0px;
+  background: rgba(192, 192, 192, 0.5);
+}
+
+#menu-overlay::after {
+  content: "";
+  position: absolute;
+  bottom: 100%;
+  right: 5%;
+  border-width: 10px;
+  border-style: solid;
+  border-color: transparent transparent #3b3737 transparent;
+}
+
+#menu-overlay button {
+  width: 100px;
+  margin: 3px 0px;
+  font-size: 1.3em;
+}

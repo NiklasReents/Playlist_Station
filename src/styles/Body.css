@@ -1,0 +1,148 @@
+#body {
+  height: 400px;
+  width: 400px;
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  background-image: radial-gradient(
+    ellipse,
+    #ffa500,
+    #ff8c00,
+    #ff0000,
+    #8b0000
+  );
+  background-repeat: no-repeat;
+}
+
+#body::-webkit-scrollbar {
+  display: none;
+}
+
+#song-element {
+  display: flex;
+  flex-direction: column;
+  padding: 10px 0px;
+  margin: 0px 3px;
+  border-top: 0.5px solid #3b3737;
+  border-bottom: 0.5px solid #3b3737;
+  background-image: linear-gradient(
+    to bottom right,
+    #000000,
+    #1b1b1b,
+    #1f1f1f,
+    #2c2b2b
+  );
+  background-repeat: no-repeat;
+}
+
+#song-element:hover {
+  border: 0.5px solid #ff0000;
+  opacity: 0.9;
+}
+
+#song-element div:first-child {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  overflow: hidden;
+}
+
+#song-element td:last-child {
+  display: flex;
+  justify-content: space-between;
+  margin: 0px 15px;
+}
+
+#song-element img:first-child,
+img:nth-child(3) {
+  border-radius: 100px;
+  background-color: #3b3737;
+}
+
+#song-element img:first-child:hover,
+img:nth-child(3):hover {
+  opacity: 0.7;
+}
+
+#song-element img:first-child:active,
+img:nth-child(3):active {
+  background-color: #ff0000;
+}
+
+#song-element img:nth-child(2) {
+  height: 150px;
+  width: 150px;
+  margin: 10px 0px 10px 0px;
+  border-radius: 100%;
+  background-color: #808080;
+  animation: rotation 15s linear 0s infinite normal paused;
+}
+
+#song-element img:nth-child(2):hover {
+  opacity: 0.7;
+}
+
+#song-element span {
+  width: 90px;
+  font-size: 1.3em;
+  color: #808080;
+}
+
+#song-element span:hover {
+  color: #ffffff;
+}
+
+#song-element span:first-child {
+  text-align: left;
+}
+
+#song-element span:last-child {
+  text-align: right;
+}
+
+#progress-bar-container {
+  height: 5px;
+  width: inherit;
+  position: relative;
+  margin: 0px 10px 5px 10px;
+  border: 1px solid #808080;
+  background-color: #000000;
+}
+
+#progress-bar {
+  height: 100%;
+  width: 0%;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  background-image: linear-gradient(
+    to right,
+    #8b0000,
+    #ff0000,
+    #ff8c00,
+    #ffa500
+  );
+  animation: incrementation 100s linear 0s 1 normal forwards paused;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(359deg);
+  }
+}
+
+@keyframes incrementation {
+  0% {
+    width: 0%;
+  }
+  100% {
+    width: 100%;
+  }
+}
