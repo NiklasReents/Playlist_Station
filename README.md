@@ -5,7 +5,7 @@ This React-based app enables users to register, log in, change their passwords v
 Tech stack frontend: React/JS, CSS.
 Teck stack backend: Node.js with Express and various npm modules (i.e. jwt, formidable, nodemailer, mongoose...) plus Mongo Atlas database.
 
-Video demo: https://www.youtube.com/embed/AVI038hHHMA?si=opeH9cUSYPMgoIqa 
+Video demo: https://www.youtube.com/watch?v=AVI038hHHMA
 
 ## To Do/Current Issues
 
